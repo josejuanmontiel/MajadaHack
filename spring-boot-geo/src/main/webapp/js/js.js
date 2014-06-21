@@ -4,7 +4,6 @@
 	
 	var fecha = document.getElementById("date1").value;
 	var hora = document.getElementById("date2").value;
-	var categoria = document.getElementById("categoria").value;
 	var nickname = document.getElementById("nick").value;
 	var email = document.getElementById("email").value;
 	var error = 0;
