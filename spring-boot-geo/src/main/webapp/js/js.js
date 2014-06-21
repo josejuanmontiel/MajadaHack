@@ -8,11 +8,11 @@
 	var email = document.getElementById("email").value;
 	var error = 0;
 	
-  if ( fecha == 'Fecha'|| fecha.length == 0 ) {
+  if ( fecha == 'iFecha'|| fecha.length == 0 ) {
     alert('error en fecha');
     error = error + 1;
   }
-  else if ( hora == 'Hora' || hora.length == 0 ) {
+  else if ( hora == 'iHora' || hora.length == 0 ) {
     alert('error en la hora');
     error = error + 1;
   }
