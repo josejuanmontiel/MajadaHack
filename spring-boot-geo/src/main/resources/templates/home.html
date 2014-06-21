@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
     <style>
       html, body, #map-canvas {
         height: 100%;
@@ -27,7 +27,7 @@
 	    </div>
 	    <div class="navbar-form navbar-left">
 		    <div class="form-group">
-		      <input type="text" id="zoomvalue" class="form-control" value="20"> <button class="btn btn-default" onclick="zoom()">Filtrar</button>
+		      <input type="text" id="zoomvalue" class="form-control" value="20" /> <button class="btn btn-default" onclick="zoom()">Filtrar</button>
 		    </div>
 	    </div>
 	   </div>
@@ -38,7 +38,7 @@
     <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-    <script>
+    <script>/*<![CDATA[*/
 		// Posicion nuestra 40.474269,-3.866283
 
 		var map;
@@ -57,7 +57,7 @@
 			// Lo que reciba de la base de datos
 			$.ajax({
 			    dataType: "json",
-			    url: "services.json",
+			    url: "/map/services",
 			    mimeType: "application/json",
 			    success: function(data){
 					// Se crean todos los marcadores
@@ -177,7 +177,7 @@
 		}
 
 		google.maps.event.addDomListener(window, 'load', initialize);
-
+		 /*]]>*/
     </script>
   </body>
 </html>
