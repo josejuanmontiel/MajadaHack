@@ -1,13 +1,183 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:cms="http://www.globalia.com/web/thymeleaf/cms">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #content {
+      	width: 100%;
+      	min-width: 350px;
+      }
+      .row {margin: 0;}
+      .navbar {margin-bottom: 0;}
+    </style>
+  </head>
+  <body>
+	 <nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">Filtrar por distancia</a>
+	    </div>
+	    <div class="navbar-form navbar-left">
+		    <div class="form-group">
+		      <input type="text" id="zoomvalue" class="form-control" value="20"> <button class="btn btn-default" onclick="zoom()">Filtrar</button>
+		    </div>
+	    </div>
+	   </div>
+	</nav>
+    <div id="map-canvas"></div>
 
-<head>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-<title></title>
+    <script>
+		// Posicion nuestra 40.474269,-3.866283
 
-</head>
+		var map;
 
-<body>
-	<a href="/map/services">Servicios JSON</a>
-</body>
+		function initialize() {
+			var mapOptions = {
+				zoom: mapZoom
+			};
+
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+			var infowindow = new google.maps.InfoWindow({
+			    content: ''
+			});
+
+			// Lo que reciba de la base de datos
+			$.ajax({
+			    dataType: "json",
+			    url: "services.json",
+			    mimeType: "application/json",
+			    success: function(data){
+					// Se crean todos los marcadores
+					for (var i = 0, j = data.length; i < j; i++) {
+
+						// Fondo de la Puntuacion
+						var color;
+						if(data[i].rating < 3) {
+							color = "danger";
+						} else if ((data[i].rating > 2) && data[i].rating < 5) {
+							color = "warning";
+						} else {
+							color = "success";
+						}
+
+						// Puntuacion
+						var stars_on = '<i class="glyphicon glyphicon-star"></i>'.repeat(data[i].rating);
+						var stars_off = '<i class="glyphicon glyphicon-star-empty"></i>'.repeat(5-data[i].rating);
+
+						// Se genera el cuerpo del marcador
+					    var content = '<div id="content">'+
+					            '<h2>'+data[i].title+'</h2>'+
+					                '<div id="bodyContent">' +
+					                    '<p>'+data[i].descripcion+'</p>' +
+					                '</div>'+
+					            '<hr/> <div class="row">'+
+					            	'<div class="pull-left"><button class="btn btn-'+color+' btn-xs">'+stars_on+stars_off+'</button></div>'+
+					            	'<div class="pull-right">'+
+						            	'<form action="#" method="post">'+
+							            	'<input type="hidden" id="" value="'+data[i].title+'"/>'+
+							            	'<input type="hidden" id="" value="'+data[i].title+'"/>'+
+							            	'<input type="hidden" id="" value="'+data[i].title+'"/>'+
+							            	'<input type="submit" class="btn btn-primary btn-xs" value="Contactar"/>'+
+							            '</form>'+
+					            	'</div>'+
+					            '</div>'+	
+					        '</div>'
+
+					    // Se crea el marcador
+					    var marker = new google.maps.Marker({
+					        position: new google.maps.LatLng(data[i].position.lat, data[i].position.lng),
+					        map: map
+					    });
+					    (function(marker, content){                      
+					        google.maps.event.addListener(marker, 'click', function() {
+					            infowindow.setContent(content);
+					            infowindow.open(map, marker);
+					        });
+					    })(marker,content);
+					}
+				}
+			});
+
+			// Geolocalización con HTML5
+			if(navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+			  		var pos = new google.maps.LatLng(position.coords.latitude,
+			                                   position.coords.longitude);
+
+			  	map.setCenter(pos);
+			}, function() {
+			  	handleNoGeolocation(true);
+			});
+			} else {
+				// Browser doesn't support Geolocation
+				handleNoGeolocation(false);
+			}
+		}
+
+
+		// Zoom del mapa
+    	var mapZoom = 16;
+
+	    function zoom() {
+	    	navigator.geolocation.getCurrentPosition(function(position) {
+		  		var pos = new google.maps.LatLng(position.coords.latitude,
+		                                   position.coords.longitude);
+		
+
+		    	var zoom = $('#zoomvalue').val();
+		    	console.log(zoom)
+		    	if(zoom < 5) {
+		    		map.setZoom(15);
+		    		map.setCenter(pos);
+		    	} else if((zoom > 5) && (zoom < 10)) {
+		    		map.setZoom(14);
+		    		map.setCenter(pos);
+		    	} else if ((zoom > 10) && (zoom < 20)){
+		    		map.setZoom(13);
+		    		map.setCenter(pos);
+		    	} else if ((zoom > 20) && (zoom < 30)){
+		    		map.setZoom(12);
+		    		map.setCenter(pos);
+		    	} else {
+		    		map.setZoom(10);
+		    		map.setCenter(pos);
+		    	}
+
+	    	});
+	    }
+
+		function handleNoGeolocation(errorFlag) {
+		  if (errorFlag) {
+		    var content = 'Error: The Geolocation service failed.';
+		  } else {
+		    var content = 'Error: Your browser doesn\'t support geolocation.';
+		  }
+
+		  var options = {
+		    map: map,
+		    position: new google.maps.LatLng(60, 105),
+		    content: content
+		  };
+
+		  var infowindow = new google.maps.InfoWindow(options);
+		  map.setCenter(options.position);
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </body>
 </html>
