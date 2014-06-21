@@ -1,0 +1,18 @@
+[
+   {
+      "categoria":"zoo",
+      "fecha_inicio":1402504652775,
+      "fecha_fin":1404232652775,
+      "title":"titulo a cabiar",
+      "descripcion":"Zoo de madrid",
+      "rating":"5",
+      "email":"email@gmail.com",
+      "mongo_pos":"pos_zoo_1",
+      "position":{
+         "lat":"40.474369",
+         "lng":"-3.866383"
+      },
+      "service_id":"zoo_1",
+      "user_id":"zoo"
+   }
+]
