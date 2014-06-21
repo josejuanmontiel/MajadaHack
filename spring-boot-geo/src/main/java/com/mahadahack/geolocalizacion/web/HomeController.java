@@ -32,6 +32,10 @@ class HomeController {
 			@Param("nick") String nick,
 			HttpSession session) {
 		
+//		categoria = "zoo";
+//		fecha = "20/06/2014";
+//		hora = "00:00:00";
+		
 		Filtro filtro = new Filtro(categoria, fecha, hora, nick);
 		
 		session.setAttribute("filtro", filtro);

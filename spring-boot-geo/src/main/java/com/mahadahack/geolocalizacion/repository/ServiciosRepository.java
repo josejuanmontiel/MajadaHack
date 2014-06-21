@@ -50,7 +50,7 @@ public class ServiciosRepository {
 	}
 	
 	public List<Servicio> getServicesByFitlro(Filtro filtro){
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Timestamp fecha = null;
 		try {
 			fecha = new Timestamp(sdf.parse(filtro.getFecha()).getTime());
@@ -98,39 +98,54 @@ public class ServiciosRepository {
 		Calendar f_inicio = Calendar.getInstance();
 		f_inicio.add(Calendar.DAY_OF_MONTH, -10);
 		Calendar f_fin = Calendar.getInstance();
-		f_fin.add(Calendar.DAY_OF_MONTH, 10); 
-		
-		Servicio servicio = new Servicio(
-			"p_ing",
-			new Timestamp(f_inicio.getTimeInMillis()),
-			new Timestamp(f_fin.getTimeInMillis()),
-			"Profesor de ingles",
-			"p_ing_1",
-			"muzzy",
-			"email@gmail.com",
-			"pos_ing_1");
+		f_fin.add(Calendar.DAY_OF_MONTH, 10);
+
+		Servicio servicio = new Servicio("p_ing", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Profesor de ingles", "p_ing_1",
+				"muzzy", "email@gmail.com", "pos_ing_1");
 		insertService(servicio);
-		
-		servicio = new Servicio(
-				"zoo",
-				new Timestamp(f_inicio.getTimeInMillis()),
-				new Timestamp(f_fin.getTimeInMillis()),
-				"Zoo de madrid",
-				"zoo_1",
-				"zoo",
-				"email@gmail.com",
-				"pos_zoo_1");
+		servicio = new Servicio("p_ing", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Profesor de ingles", "p_ing_2",
+				"muzzy", "email@gmail.com", "pos_ing_2");
 		insertService(servicio);
-		
-		servicio = new Servicio(
-				"algo",
-				new Timestamp(f_inicio.getTimeInMillis()),
-				new Timestamp(f_fin.getTimeInMillis()),
-				"Algo",
-				"algo_1",
-				"algo",
-				"email@gmail.com",				
-				"pos_algo_1");
+		servicio = new Servicio("p_ing", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Profesor de ingles", "p_ing_3",
+				"muzzy", "email@gmail.com", "pos_ing_3");
+		insertService(servicio);
+
+		servicio = new Servicio("zoo",
+				new Timestamp(f_inicio.getTimeInMillis()), new Timestamp(
+						f_fin.getTimeInMillis()), "Zoo de madrid", "zoo_1",
+				"zoo", "email@gmail.com", "pos_zoo_1");
+		insertService(servicio);
+		servicio = new Servicio("zoo",
+				new Timestamp(f_inicio.getTimeInMillis()), new Timestamp(
+						f_fin.getTimeInMillis()), "Zoo de madrid", "zoo_1",
+				"zoo", "email@gmail.com", "pos_zoo_2");
+		insertService(servicio);
+		servicio = new Servicio("zoo",
+				new Timestamp(f_inicio.getTimeInMillis()), new Timestamp(
+						f_fin.getTimeInMillis()), "Zoo de madrid", "zoo_1",
+				"zoo", "email@gmail.com", "pos_zoo_3");
+		insertService(servicio);
+
+		servicio = new Servicio("algo", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Algo", "algo_1", "algo",
+				"email@gmail.com", "pos_algo_1");
+		insertService(servicio);
+		servicio = new Servicio("algo", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Algo", "algo_1", "algo",
+				"email@gmail.com", "pos_algo_2");
+		insertService(servicio);
+		servicio = new Servicio("algo", new Timestamp(
+				f_inicio.getTimeInMillis()), new Timestamp(
+				f_fin.getTimeInMillis()), "Algo", "algo_1", "algo",
+				"email@gmail.com", "pos_algo_3");
 		insertService(servicio);
 	}
 	
