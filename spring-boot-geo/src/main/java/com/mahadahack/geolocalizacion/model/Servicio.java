@@ -2,14 +2,35 @@ package com.mahadahack.geolocalizacion.model;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Servicio {
 
 	
 	private String categoria;
 	private Timestamp fecha_inicio;
 	private Timestamp fecha_fin;
+	private String title = "titulo a cabiar";
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
 	private String descripcion;
+	@JsonProperty("service_id")
 	private String id_servicio;
+	private String rating = "5";
+	@JsonProperty("user_id")
 	private String id_usuario;
 	private String email;
 	private String mongo_pos;
