@@ -1,2 +1,7 @@
 chatNodeJs/node_modules
 .idea
+target
+.metadata
+.classpath
+.project
+.settings
